@@ -1,0 +1,337 @@
+{
+	"info": {
+		"_postman_id": "9dfb0826-3a68-430d-89dc-bf0182a7ab2c",
+		"name": "qNgin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2033655"
+	},
+	"item": [
+		{
+			"name": "scrap",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Set Value\", function () {",
+							"    if (pm.response.code === 200) {   ",
+							"        var scrap = pm.response.json();",
+							"        pm.collectionVariables.set(\"scrapX\",scrap.x);",
+							"        pm.collectionVariables.set(\"scrapY\",scrap.y);",
+							"        pm.collectionVariables.set(\"scrapZ\",scrap.z);",
+							"        pm.collectionVariables.set(\"scrapVolume\",scrap.volume);",
+							"        pm.collectionVariables.set(\"scrapArea\",scrap.area);",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "fileType",
+							"value": "stl",
+							"type": "text"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/Users/xeonkung/Downloads/2023-07/StackableBox_1.1.stl"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}/scrap",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"scrap"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ML mcost",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Set Value\", function () {",
+							"    if (pm.response.code === 200) {   ",
+							"        var scrap = pm.response.json();",
+							"        pm.collectionVariables.set(\"scrapX\",scrap.x);",
+							"        pm.collectionVariables.set(\"scrapY\",scrap.y);",
+							"        pm.collectionVariables.set(\"scrapZ\",scrap.z);",
+							"        pm.collectionVariables.set(\"scrapVolume\",scrap.volume);",
+							"        pm.collectionVariables.set(\"scrapArea\",scrap.area);",
+							"        pm.collectionVariables.set(\"mcost\", scrap.total);",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "fileType",
+							"value": "stl",
+							"type": "text"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/Users/xeonkung/Downloads/2023-07/StackableBox_1.1.stl"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}/ml",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"ml"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "mcost-cnc",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Set Value\", function () {",
+							"    if (pm.response.code === 200) {   ",
+							"        var data = pm.response.json();",
+							"        pm.collectionVariables.set(\"mcost\",data.total);",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "x",
+							"value": "{{scrapX}}",
+							"description": "mm",
+							"type": "text"
+						},
+						{
+							"key": "y",
+							"value": "{{scrapY}}",
+							"description": "mm",
+							"type": "text"
+						},
+						{
+							"key": "z",
+							"value": "{{scrapZ}}",
+							"description": "mm",
+							"type": "text"
+						},
+						{
+							"key": "area",
+							"value": "{{scrapArea}}",
+							"description": "mm^2",
+							"type": "text"
+						},
+						{
+							"key": "volume",
+							"value": "{{scrapVolume}}",
+							"description": "mm^3",
+							"type": "text"
+						},
+						{
+							"key": "density",
+							"value": "2.68",
+							"description": "g/cm^3",
+							"type": "text"
+						},
+						{
+							"key": "cost",
+							"value": "300",
+							"description": "material cost in baht/kg",
+							"type": "text"
+						},
+						{
+							"key": "machineFactor",
+							"value": "0.1",
+							"description": "hard mill rate",
+							"type": "text"
+						},
+						{
+							"key": "surfaceFactor",
+							"value": "1",
+							"description": "surface finishing rate",
+							"type": "text"
+						},
+						{
+							"key": "extraTolerance",
+							"value": "true",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "extraThreadHole",
+							"value": "true",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}/mcost/cnc",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"mcost",
+						"cnc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "price-matrix",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var template = `",
+							"    <table bgcolor=\"#FFFFFF\">",
+							"        <tr>",
+							"            {{#each title}}",
+							"                <th>{{this}}</th>",
+							"            {{/each}}",
+							"        </tr>",
+							"",
+							"        {{#each data}}",
+							"            <tr>",
+							"                <td>{{this.[0]}}</td>",
+							"                <td>{{this.[1]}}</td>",
+							"                <td>{{this.[2]}}</td>",
+							"            </tr>",
+							"        {{/each}}",
+							"    </table>",
+							"`;",
+							"if (pm.response.code === 200) {",
+							"    var data = pm.response.json();",
+							"    // Set visualizer",
+							"    pm.visualizer.set(template, {",
+							"        title: data.title,",
+							"        data: data.data.map(row => row.map(c => c.toLocaleString())),",
+							"    });",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "mcost",
+							"value": "{{mcost}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}/pmatrix",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"pmatrix"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "scrapX",
+			"value": ""
+		},
+		{
+			"key": "scrapY",
+			"value": ""
+		},
+		{
+			"key": "scrapZ",
+			"value": ""
+		},
+		{
+			"key": "scrapVolume",
+			"value": ""
+		},
+		{
+			"key": "scrapArea",
+			"value": ""
+		},
+		{
+			"key": "machine_cost",
+			"value": ""
+		},
+		{
+			"key": "mcost",
+			"value": ""
+		}
+	]
+}

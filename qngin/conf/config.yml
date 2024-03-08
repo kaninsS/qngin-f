@@ -1,0 +1,49 @@
+version: "1.0"
+debug: false
+
+cnc:
+  surfaceTrueFactor:
+    basePrice: 20
+    lastPriceStep: 0.8
+    parameterStep: 1.1
+    priceStep: 1.01
+    rangeOfRatio: 20
+  
+  surfaceFalseFactor:
+    basePrice: 15
+    lastPriceStep: 0.8
+    parameterStep: 1.1
+    priceStep: 1.01
+    rangeOfRatio: 20
+
+  volumeFactor:
+    basePrice: 15
+    lastPriceStep: 0.9
+    parameterStep: 1.05
+    priceStep: 1.01
+    rangeOfRatio: 10
+
+  extraToleranceFactor: 0.25
+  extraThreadHoleFactor: 0.25
+  # setup cost if less than 5000 + setup cost 1000
+  setupCost: [5000, 1000]
+  # maximum size
+  machineMaxLimit:
+    - 500
+    - 500
+    - 200
+  # minimum size
+  machineMinLimit:
+    - 5
+    - 5
+    - 5
+  # priceMatrix #unit #minimum_price (baht) #discount_factor
+  priceMatrix:
+    - [1, 500, 1]
+    - [5, 450, 0.95]
+    - [10, 400, 0.9]
+    - [20, 350, 0.85]
+    - [50, 300, 0.8]
+    - [100, 250, 0.75]
+  # fast track factor
+  fastTrackFactor: 0.5

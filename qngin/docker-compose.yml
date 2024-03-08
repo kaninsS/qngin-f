@@ -1,0 +1,10 @@
+version: '3.9'
+
+services:
+  web:
+    image: xeonkung/qngin
+    container_name: qngin
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./conf:/var/app/conf
